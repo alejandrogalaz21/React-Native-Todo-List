@@ -8,6 +8,7 @@ import cookies from './middleware/cookies'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUI from 'swagger-ui-express'
 import { options } from './config/swaggerOptions'
+import router from './router'
 
 const app = express()
 const specs = swaggerJSDoc(options)
@@ -27,5 +28,6 @@ app.use(cookies)
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs))
+app.use(router)
 
 export default app

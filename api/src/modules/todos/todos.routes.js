@@ -1,63 +1,75 @@
 import { Router } from 'express'
 import * as todosController from './todos.controller'
 // * import validators
-// * import middleware 
-
+// * import middleware
 
 const router = new Router()
 
-//* C.R.U.D ROUTES *//
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Todos:
+ *      type: object
+ *      properties:
+ *        id:
+ *          type: string
+ *          description: the auto-generated id of Todos
+ *        title:
+ *          type: string
+ *          description: the Todos title
+ *        description:
+ *          type: string
+ *          description: the Todos description
+ * tags:
+ *  name: Todos
+ *  description: Todos endpoint
+ */
 
 /**
- * @desc      get all the records paginated
- * @access    Public
- * @route     GET api/todos
- * @params    query, page, limit
+ * @swagger
+ * /api/todos:
+ *  get:
+ *    summary: Get all Todos
+ *    tags: [Todos]
  */
 router.get('/todos', todosController.getAllTodosPagination)
 
 /**
- * @desc      get all the records
- * @access    Public
- * @route     GET api/todos
- * @params    queryString, page, limit
- */
-router.get('/todos/all', todosController.getAllTodos)
-
-/**
- * @access    Private
- * @route     POST api/todos
- * @desc      create a record
- * @params    {payload}
+ * @swagger
+ * /api/todos:
+ *  post:
+ *    summary: save a new Todos
+ *    tags: [Todos]
  */
 router.post('/todos', todosController.createTodo)
 
 /**
- * @desc      get single record
- * @access    Private
- * @route     GET api/todos/id
- * @params    id
+ * @swagger
+ * /api/todos/{id}:
+ *  get:
+ *    summary: Get Todos by Id
+ *    tags: [Todos]
  */
 router.get('/todos/:id', todosController.getOneTodo)
 
 /**
- * @desc      update a record
- * @access    Private
- * @route     PUT api/todos/id
- * @params    id, {payload}.
- */
-router.put('/todos/:id', todosController.updateTodo)
-
-/**
- * @desc      delete a record
- * @access    Private
- * @route     DELETE api/todos/id
- * @params    id
+ * @swagger
+ * /api/todos/{id}:
+ *  delete:
+ *    summary: delete a Todos by Id
+ *    tags: [Todos]
  */
 router.delete('/todos/:id', todosController.deleteTodo)
 
-// TODO work in progress
-//* OTHER ROTES (EXPORT, REPORTS, ETC...) *//
+/**
+ * @swagger
+ * /api/todos/{id}:
+ *  put:
+ *    summary: update a Todos by Id
+ *    tags: [Todos]
+ */
+router.put('/todos/:id', todosController.updateTodo)
 
 /**
  * @desc      export to cvs the selected rows
