@@ -1,0 +1,62 @@
+import {{pascalCase modelName}} from './{{camelCase modelName}}.model'
+
+/**
+ * @desc      get all {{camelCase modelName}} document's.
+ * @params    query.
+ */
+export const getAll{{pascalCase noun}} = async (query = {}) => {
+  const data = await {{pascalCase modelName}}.find(query).sort({ updatedAt: -1 })
+  return data
+}
+
+/**
+ * @desc      get all {{camelCase modelName}} document's paginated.
+ * @params    query, page, limit.
+ */
+export const get{{pascalCase noun}}Pagination = async (query = {}, page = 0, limit = 10) => {
+  const options = {
+    page,
+    limit,
+    sort: { updatedAt: -1 }
+  }
+  const data = await {{pascalCase modelName}}.paginate(query, options)
+  return data
+}
+
+/**
+ * @desc      create new {{camelCase modelName}}.
+ * @params    body.
+ */
+export const create{{pascalCase modelName}} = async body => {
+  const data = await {{pascalCase modelName}}.create(body)
+  return data
+}
+
+/**
+ * @desc      get single {{camelCase modelName}} document.
+ * @params    id.
+ */
+export const get{{pascalCase modelName}} = async id => {
+  const data = await {{pascalCase modelName}}.findById(id)
+  return data
+}
+
+/**
+ * @desc      update single {{camelCase modelName}} document.
+ * @params    id, body.
+ */
+export const update{{pascalCase modelName}} = async (id, body) => {
+  const data = await {{pascalCase modelName}}.findByIdAndUpdate(id, body, {
+    new: true
+  })
+  return data
+}
+
+/**
+ * @desc      delete single {{camelCase modelName}} document.
+ * @params    id.
+ */
+export const delete{{pascalCase modelName}} = async id => {
+  const data = await {{pascalCase modelName}}.findByIdAndDelete(id)
+  return data
+}

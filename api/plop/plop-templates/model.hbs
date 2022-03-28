@@ -1,0 +1,66 @@
+import mongoose from 'mongoose'
+import slug from 'mongoose-slug-generator'
+import mongoosePaginate from 'mongoose-paginate-v2'
+
+mongoose.plugin(slug)
+
+const Schema = mongoose.Schema
+const ObjectId = mongoose.Schema.ObjectId
+
+export const {{camelCase modelName}}Fields = {
+  {{#each fields}}
+  {{#switch fieldType}}
+  {{#case "String"}}
+  {{camelCase fieldName}}: {
+    type: {{fieldType}},
+    required: [true, 'is required']
+  },
+  {{/case}}
+  {{#case "Slug"}}
+  {{camelCase fieldName}}: {
+    type: String,
+    slug: '',
+    unique: true
+  },
+  {{/case}}
+  {{#case "Number"}}
+  {{camelCase fieldName}}: {
+    type: {{fieldType}},
+    required: [true, 'is required']
+  },
+  {{/case}}
+  {{#case "Date"}}
+  {{camelCase fieldName}}: {
+    type: {{fieldType}}
+  },
+  {{/case}}
+  {{#case "Boolean"}}
+  {{camelCase fieldName}}: {
+    type: {{fieldType}},
+    default: true,
+  },
+  {{/case}}
+  {{#case "ObjectId"}}
+  {{camelCase fieldName}}: { type: ObjectId, ref: '' },
+  {{/case}}
+  {{#case "[ObjectId]"}}
+  {{camelCase fieldName}}: [{ type: ObjectId, ref: '' }],
+  {{/case}}
+  {{/switch}}
+  {{/each}} 
+  active: {
+    desc: 'is Active tag',
+    type: Boolean,
+    default: true,
+    required: true
+  }
+}
+
+export const {{camelCase modelName}}SchemaConfig = {
+  versionKey: false,
+  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
+}
+
+const schema = new Schema({{camelCase modelName}}Fields, {{camelCase modelName}}SchemaConfig)
+schema.plugin(mongoosePaginate)
+export default mongoose.model('{{camelCase modelName}}', schema)

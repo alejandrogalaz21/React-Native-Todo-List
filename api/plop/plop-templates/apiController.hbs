@@ -1,0 +1,126 @@
+import HttpStatus from 'http-status-codes'
+import * as {{camelCase modelName}}Service  from './{{camelCase modelName}}.service'
+import * as ctrlHelpers from './../../utils/controllers.util'
+
+/**
+ * @desc   Controller method to get all {{camelCase noun}} results paginated
+ * @param  {object} req - request object
+ * @param  {object} res - response object
+ * @param  {Function} next
+ */
+export const getAll{{pascalCase noun}}Pagination = async (req, res, next) => {
+  try {
+    const { page, limit, query } = ctrlHelpers.getQueryString(req.query)
+    const documents = await {{camelCase modelName}}Service.get{{pascalCase noun}}Pagination(query, page, limit)
+    const response = ctrlHelpers.responseFormat(
+      HttpStatus.OK,
+      documents,
+      'all {{camelCase noun}} fetched successfully'
+    )
+    return res.status(HttpStatus.OK).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @desc   Controller method to get all {{camelCase noun}} available
+ * @param  {object} req - request object
+ * @param  {object} res - response object
+ * @param  {Function} next
+ */
+export const getAll{{pascalCase noun}} = async (req, res, next) => {
+  try {
+    const { query } = ctrlHelpers.getQueryString(req.query)
+    const documents = await {{camelCase modelName}}Service.getAll{{pascalCase noun}}(query)
+    const response = ctrlHelpers.responseFormat(
+      HttpStatus.OK,
+      documents,
+      'all {{camelCase noun}} fetched successfully'
+    )
+    return res.status(HttpStatus.OK).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @desc   Controller method to create new {{camelCase modelName}}
+ * @param  {object} req - request object
+ * @param  {object} res - response object
+ * @param  {Function} next
+ */
+export const create{{pascalCase modelName}} = async (req, res, next) => {
+  try {
+    console.log('user controller -> newUser()')
+    const doc = await {{camelCase modelName}}Service.create{{pascalCase modelName}}(req.body)
+    const response = ctrlHelpers.responseFormat(
+      HttpStatus.CREATED,
+      doc,
+      '{{camelCase modelName}} created successfully'
+    )
+    return res.status(HttpStatus.CREATED).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @desc   Controller method to get single {{camelCase modelName}} available
+ * @param  {object} req - request object
+ * @param  {object} res - response object
+ * @param  {Function} next
+ */
+export const getOne{{pascalCase modelName}} = async (req, res, next) => {
+  try {
+    const doc = await {{camelCase modelName}}Service.get{{pascalCase modelName}}(req.params.id)
+    const response = ctrlHelpers.responseFormat(
+      HttpStatus.OK,
+      doc,
+      '{{camelCase modelName}} fetched successfully'
+    )
+   return res.status(HttpStatus.OK).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @desc   Controller method to update single {{camelCase modelName}}
+ * @param  {object} req - request object
+ * @param  {object} res - response object
+ * @param  {Function} next
+ */
+export const update{{pascalCase modelName}} = async (req, res, next) => {
+  try {
+    const doc = await {{camelCase modelName}}Service.update{{pascalCase modelName}}(req.params.id, req.body)
+    const response = ctrlHelpers.responseFormat(
+      HttpStatus.ACCEPTED,
+      doc,
+      '{{camelCase modelName}} updated successfully'
+    )
+    return res.status(HttpStatus.ACCEPTED).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @desc   Controller method to delete a {{camelCase modelName}}
+ * @param  {object} req - request object
+ * @param  {object} res - response object
+ * @param  {Function} next
+ */
+export const delete{{pascalCase modelName}} = async (req, res, next) => {
+  try {
+    const doc = await {{camelCase modelName}}Service.delete{{pascalCase modelName}}(req.params.id)
+    const response = ctrlHelpers.responseFormat(
+      HttpStatus.ACCEPTED,
+      doc,
+      '{{camelCase modelName}} deleted successfully'
+    )
+    return res.status(HttpStatus.ACCEPTED).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
